@@ -1,0 +1,51 @@
+FROM ubuntu:22.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+
+# 设置代理
+ENV http_proxy="http://oversea-squid1.jp.txyun:11080" \
+    https_proxy="http://oversea-squid1.jp.txyun:11080" \
+    HTTP_PROXY="http://oversea-squid1.jp.txyun:11080" \
+    HTTPS_PROXY="http://oversea-squid1.jp.txyun:11080" \
+    no_proxy="localhost,127.0.0.1,localaddress,localdomain.com,.internal,corp.kuaishou.com,.test.gifshow.com,.staging.kuaishou.com" \
+    NO_PROXY="localhost,127.0.0.1,localaddress,localdomain.com,.internal,.corp.kuaishou.com,.test.gifshow.com,.staging.kuaishou.com"
+
+# 设置 pip 源
+ENV PIP_INDEX_URL="https://pypi.corp.kuaishou.com/kuaishou/prod/+simple/" \
+    UV_INDEX_URL="https://pypi.corp.kuaishou.com/kuaishou/prod/+simple/"
+
+# 安装基础包
+RUN apt-get update && \
+    rm -f /var/lib/dpkg/lock* /var/cache/apt/archives/lock /etc/group.*lock* && \
+    apt-get install -y --no-install-recommends \
+    wget build-essential libffi-dev libtiff-dev \
+    python3 python3-pip python-is-python3 jq curl \
+    locales locales-all tzdata && \
+    rm -rf /var/lib/apt/lists/*
+
+# 安装 git
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git || true && \
+    rm -rf /var/lib/apt/lists/*
+
+# 安装 conda
+RUN wget 'https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh' -O miniconda.sh && \
+    bash miniconda.sh -b -p /opt/miniconda3 && \
+    rm miniconda.sh
+
+# 设置 PATH
+ENV PATH=/opt/miniconda3/bin:$PATH
+
+# 初始化 conda
+RUN conda init --all && \
+    conda config --append channels conda-forge && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ && \
+    conda config --set show_channel_urls yes
+
+# 添加用户
+RUN adduser --disabled-password --gecos 'dog' nonroot
+
+WORKDIR /testbed/

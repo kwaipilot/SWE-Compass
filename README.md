@@ -1,0 +1,184 @@
+# SWECompass: A High-Coverage Benchmark for Real-World Software Engineering
+
+[🇺🇸 English Version](README.md) [🇨🇳 简体中文版本](README_CN.md)
+
+---
+
+## 🧠 SWECompass: A High-Coverage, Multi-Dimensional Benchmark for Real-World Software Engineering
+
+Current evaluations of LLMs for software engineering are limited by a narrow range of task categories, a Python-centric bias, and insufficient alignment with real-world development workflows.  
+To bridge these gaps, SWECompass establishes a **high-coverage, multi-dimensional, and production-aligned evaluation framework**:
+
+* ✨ Covers **8 software engineering task types, 8 programming scenarios, and 10 programming languages**
+* ✨ Contains **2000 high-quality instances sourced from real GitHub pull requests**
+* ✨ Data is systematically filtered and validated to ensure reliability and diversity
+* ✨ Supports multi-dimensional performance comparison across task types, languages, and scenarios
+
+By integrating heterogeneous code tasks with real engineering practices, SWECompass provides a **reproducible, rigorous, and production-oriented benchmark** for diagnosing and improving the software engineering capabilities of large language models.
+
+---
+
+## 📚 Dataset & Paper
+
+* Dataset (HuggingFace):  
+  👉 https://huggingface.co/datasets/Kwaipilot/SWE-Compass
+
+* Paper (arXiv):  
+  👉 https://arxiv.org/abs/2511.05459
+
+---
+
+## ✨ Key Features
+
+* ⚙️ Automated Docker-based evaluation environment
+* 📦 Multi-project, multi-task, multi-language
+* 🤖 Supports execution and evaluation of model-generated patches
+* 📊 Multi-dimensional performance metrics: task type, scenario, language
+* 🌟 Optional integration with an LLM judge for code understanding tasks
+* 🔄 Highly reproducible, designed for research and production applications
+
+---
+
+# 📦 1. Environment Setup
+
+### 1.1 Install Docker
+
+Refer to the official documentation:  
+https://docs.docker.com/engine/install/
+
+### 1.2 Install Python 3.11 and Dependencies
+
+Enter the project directory and run:
+
+```bash
+cd SWE-Compass
+pip install -e .
+pip install -r requirements.txt
+````
+
+---
+
+# 🐳 2. Download Required Docker Images and Supplementary Data
+
+Enter the project directory and run:
+
+```bash
+cd SWE-Compass
+bash pull_docker.sh
+python download_all_data.py
+```
+
+The scripts will automatically download the evaluation environment from DockerHub.
+
+---
+
+# 📄 3. Prepare Prediction Data
+
+You need to prepare a JSON file that maps each `instance_id` to its corresponding patch and metadata.
+
+Example format (see `SWE-Compass/data/example.json`):
+
+```json
+{
+  "<instance_id>": {
+    "model_name_or_path": "<your_model_name>",
+    "instance_id": "<instance_id>",
+    "model_patch": "<your_model_patch>"
+  }
+}
+```
+
+> Each prediction entry only requires three fields:
+> `model_name_or_path`, `instance_id`, `model_patch`
+
+---
+
+# ▶️ 4. Run Evaluation
+
+### 4.1 Basic Command
+
+```bash
+cd SWE-Compass
+python validation.py \
+  --dataset_name ./data/swecompass_all_2000.jsonl \
+  --predictions_path <your_predictions.json> \
+  --max_workers <num_workers> \
+  --run_id <run_id> \
+  --model_name <judge_model_name> \
+  --api_key <judge_api_key> \
+  --base_url <judge_model_base_url> \
+  --proxy <proxy address>
+```
+
+### 4.2 Example
+
+```bash
+python validation.py \
+  --dataset_name ./data/swecompass_all_2000.jsonl \
+  --predictions_path ./data/example.json \
+  --max_workers 10 \
+  --run_id test \
+  --model_name deepseek_v3 \
+  --api_key xxx \
+  --base_url xxx \
+  --proxy http ... 
+```
+
+---
+
+# 📊 5. Evaluation Outputs
+
+---
+
+## 5.1 Work Logs Directory
+
+```
+SWE-Compass/output/work/<run_id>/
+```
+
+Contains execution traces and logs for each instance.
+
+---
+
+## 5.2 Evaluation Results Directory
+
+```
+SWE-Compass/output/result/<run_id>/
+```
+
+Contains two files:
+
+| File             | Content                                           |
+| ---------------- | ------------------------------------------------- |
+| `raw_data.jsonl` | Raw evaluation results for each instance          |
+| `result.json`    | Aggregated scores by task, language, and scenario |
+
+---
+
+# ⚙️ 6. Common Arguments
+
+| Argument             | Description                    |
+| -------------------- | ------------------------------ |
+| `--dataset_name`     | Path to dataset                |
+| `--predictions_path` | Model predictions JSON file    |
+| `--max_workers`      | Number of worker processes     |
+| `--run_id`           | Unique identifier for this run |
+| `--model_name`       | Judge LLM model name           |
+| `--api_key`          | Judge LLM API key              |
+| `--base_url`         | Judge LLM API URL              |
+| `--proxy`            | Proxy address                  |
+
+
+
+# 📄 7. Citation
+
+```bibtex
+@article{xu2025SWECompass,
+  title={SWECompass: A High-Coverage, Multi-Dimensional Benchmark for Real-World Software Engineering},
+  author={Xu, Jingxuan and Deng, Ken and Li, Weihao and Yu, Songwei etc},
+  journal={arXiv preprint arXiv:2511.05459},
+  year={2025}
+}
+```
+
+````

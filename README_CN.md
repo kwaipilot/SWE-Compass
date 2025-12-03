@@ -1,0 +1,165 @@
+# 🧠 SWECompass：面向真实软件工程的高覆盖基准测试框架
+
+[🇺🇸 English Version](README.md) [🇨🇳 简体中文版本](README_CN.md)
+
+当前针对软件工程的 LLM 评测存在诸多局限，例如任务类型单一、偏向 Python、难以反映真实开发流程。
+为弥补这些不足，SWECompass 构建了一个**高覆盖、多维度、工程化对齐的统一评测框架**：
+
+* ✨ 覆盖 **8 类软件工程任务、8 种编程场景、10 种编程语言**
+* ✨ 包含 **2000 条来自真实 GitHub Pull Request 的高质量实例**
+* ✨ 数据经过系统化过滤与验证，确保可靠性与多样性
+* ✨ 支持任务类型、语言、场景等多维度的性能比较
+
+通过统一异构代码任务与真实工程实践，SWECompass 提供了一个**可复现、严谨、面向生产环境的评测基准**，用于诊断和提升大模型的软件工程能力。
+
+---
+
+# 📚 数据集与论文
+
+* 数据集（HuggingFace）：
+  👉 [https://huggingface.co/datasets/Kwaipilot/SWE-Compass](https://huggingface.co/datasets/Kwaipilot/SWE-Compass)
+
+* 论文（arXiv）：
+  👉 [https://arxiv.org/abs/2511.05459](https://arxiv.org/abs/2511.05459)
+
+---
+
+# ✨ 特性摘要
+
+* ⚙️ 自动化 Docker 评测环境管理
+* 📦 多项目、多任务、多语言
+* 🤖 支持模型生成补丁（patch）的执行与评测
+* 📊 输出多维评测指标：任务类型、场景、语言
+* 🌟 可选接入 LLM Judge 评估代码理解能力
+* 🔄 高度可复现、面向研究和生产应用
+
+---
+
+# 📦 1. 环境准备
+
+### 1.1 安装 Docker
+
+参考官方文档：
+[https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+
+### 1.2 安装 Python 3.11 与依赖
+
+进入项目目录并执行：
+```bash
+cd SWE-Compass
+pip install -e .
+pip install -r requirements.txt
+```
+
+---
+
+# 🐳 2. 下载评测所需 Docker 镜像和评测补充数据全集
+
+进入项目目录并执行：
+
+```bash
+cd SWE-Compass
+bash pull_docker.sh
+python download_all_data.py
+```
+
+脚本将自动从 DockerHub 拉取评测环境。
+
+---
+
+# 📄 3. 准备预测数据（Predictions）
+
+你需要准备一个 JSON 文件，将每个 `instance_id` 映射到其补丁与来源信息。
+
+格式如下（示例见 `SWE-Compass/data/example.json`）：
+
+```json
+{
+  "<instance_id>": {
+    "model_name_or_path": "<your_model_name>",
+    "instance_id": "<instance_id>",
+    "model_patch": "<your_model_patch>"
+  }
+}
+```
+
+> 每条预测数据只需包含三个字段：
+> `model_name_or_path`、`instance_id`、`model_patch`
+
+---
+
+# ▶️ 4. 运行评测
+
+### 4.1 基本命令
+
+```bash
+cd SWE-Compass
+python validation.py \
+  --dataset_name ./data/swecompass_all_2000.jsonl \
+  --predictions_path <你的预测数据.json> \
+  --max_workers <并发数> \
+  --run_id <运行编号> \
+  --model_name <judge模型名称> \
+  --api_key <judge模型API Key> \
+  --base_url <judge模型API URL> \
+  --proxy <代理地址>
+```
+
+### 4.2 示例
+
+```bash
+python validation.py \
+  --dataset_name ./data/swecompass_all_2000.jsonl \
+  --predictions_path ./data/example.json \
+  --max_workers 10 \
+  --run_id test \
+  --model_name deepseek_v3 \
+  --api_key xxx \
+  --base_url xxx \
+  --proxy http ... 
+```
+
+---
+
+# 📊 5. 输出结果
+
+
+---
+
+## 5.1 运行日志目录
+
+```
+SWE-Compass/output/work/<run_id>/
+```
+
+包含每个实例的执行过程与日志。
+
+---
+
+## 5.2 评测结果目录
+
+```
+SWE-Compass/output/result/<run_id>/
+```
+
+包含两个文件：
+
+| 文件               | 内容             |
+| ---------------- | -------------- |
+| `raw_data.jsonl` | 每个实例的原始评测结果    |
+| `result.json`    | 汇总后的任务/语言/场景分数 |
+
+---
+
+# ⚙️ 6. 常用参数说明
+
+| 参数                   | 说明            |
+| -------------------- | ------------- |
+| `--dataset_name`     | 数据集路径         |
+| `--predictions_path` | 模型预测 JSON 文件  |
+| `--max_workers`      | 并发数           |
+| `--run_id`           | 运行编号          |
+| `--model_name`       | Judge LLM 模型名     |
+| `--api_key`          | Judge LLM API Key |
+| `--base_url`         | Judge LLM API URL |
+| `--proxy`            | 代理地址     |
