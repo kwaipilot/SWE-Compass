@@ -1,20 +1,20 @@
-# SWECompass: A High-Coverage Benchmark for Real-World Software Engineering
+# SWE-Compass: A High-Coverage Benchmark for Real-World Software Engineering
 
 [🇺🇸 English ](README.md) [🇨🇳 简体中文](README_CN.md)
 
 ---
 
-## 🧠 SWECompass: A High-Coverage, Multi-Dimensional Benchmark for Real-World Software Engineering
+## 🧠 SWE-Compass: A High-Coverage, Multi-Dimensional Benchmark for Real-World Software Engineering
 
 Current evaluations of LLMs for software engineering are limited by a narrow range of task categories, a Python-centric bias, and insufficient alignment with real-world development workflows.  
-To bridge these gaps, SWECompass establishes a **high-coverage, multi-dimensional, and production-aligned evaluation framework**:
+To bridge these gaps, SWE-Compass establishes a **high-coverage, multi-dimensional, and production-aligned evaluation framework**:
 
 * ✨ Covers **8 software engineering task types, 8 programming scenarios, and 10 programming languages**
 * ✨ Contains **2000 high-quality instances sourced from real GitHub pull requests**
 * ✨ Data is systematically filtered and validated to ensure reliability and diversity
 * ✨ Supports multi-dimensional performance comparison across task types, languages, and scenarios
 
-By integrating heterogeneous code tasks with real engineering practices, SWECompass provides a **reproducible, rigorous, and production-oriented benchmark** for diagnosing and improving the software engineering capabilities of large language models.
+By integrating heterogeneous code tasks with real engineering practices, SWE-Compass provides a **reproducible, rigorous, and production-oriented benchmark** for diagnosing and improving the software engineering capabilities of large language models.
 
 ---
 
@@ -190,7 +190,7 @@ Apache License 2.0 license. Check LICENSE.md.
 
 ```bibtex
 @article{xu2025SWECompass,
-  title={SWECompass: A High-Coverage, Multi-Dimensional Benchmark for Real-World Software Engineering},
+  title={SWE-Compass: A High-Coverage, Multi-Dimensional Benchmark for Real-World Software Engineering},
   author={Xu, Jingxuan and Deng, Ken and Li, Weihao and Yu, Songwei etc},
   journal={arXiv preprint arXiv:2511.05459},
   year={2025}
