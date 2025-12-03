@@ -378,7 +378,7 @@ def build_output_paths(root: Path, args) -> Dict[str, Path]:
         "run_test_patch": root / "run_test_patch.log",
         "log_initial": root / "log_initial.log",
         "log_test_patch": root / "log_test_patch.log",
-        "parsed_initial": Path("/share-new/leikepeng/code/gen_output1") / args.repo_name / "parsed_initial.json",
+        "parsed_initial": Path(__file__).resolve().parent / "initial" / args.repo_name / "parsed_initial.json",
         "parsed_test_patch": root / "parsed_test_patch.json",
         "diff": root / "diff_F2P.txt",
         "result_json": root / "result.json",
@@ -480,7 +480,7 @@ def main(args: argparse.Namespace) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Commit-Pack Runner (docker load + 4-stage test + LLM judge)")
 
-    parser.add_argument("--docker-tar", default="/share-new/zhangxiaojiang/swebench_verified_images/swebench_sweb.eval.x86_64.astropy_1776_astropy-12907_latest.tar", help="Path to the Docker image tar file")
+    parser.add_argument("--docker-tar", default="", help="Path to the Docker image tar file")
     parser.add_argument("--base-commit", default="", help="Base commit hash")
     parser.add_argument("--test-cmd", default="", help="Test command")
     parser.add_argument("--repo_name", default="", help="Repository name")
