@@ -1,6 +1,6 @@
 # SWECompass: A High-Coverage Benchmark for Real-World Software Engineering
 
-[🇺🇸 English Version](README.md) [🇨🇳 简体中文版本](README_CN.md)
+[🇺🇸 English ](README.md) [🇨🇳 简体中文](README_CN.md)
 
 ---
 
@@ -169,8 +169,24 @@ Contains two files:
 | `--proxy`            | Proxy address                  |
 
 
+# 🤝 7. Contributions
 
-# 📄 7. Citation
+We welcome contributions from the research community in NLP, Machine Learning, and Software Engineering.  
+Researchers are encouraged to submit issues or pull requests that extend, evaluate, or refine the benchmark.
+
+For collaboration or inquiries, please contact:
+
+- **Xujingxuan** — xujingxuan2002@163.com  
+- **Ken Deng** — dengken@kuaishou.com  
+- **Jiaheng Liu** — liujiaheng@nju.edu.cn  
+
+We appreciate constructive engagement and look forward to further improvements driven by the community.
+
+
+
+# 📄 8. Citation & licence
+
+Apache License 2.0 license. Check LICENSE.md.
 
 ```bibtex
 @article{xu2025SWECompass,
@@ -180,5 +196,3 @@ Contains two files:
   year={2025}
 }
 ```
-
-````

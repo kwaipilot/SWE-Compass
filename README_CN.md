@@ -1,6 +1,6 @@
 # 🧠 SWECompass：面向真实软件工程的高覆盖基准测试框架
 
-[🇺🇸 English Version](README.md) [🇨🇳 简体中文版本](README_CN.md)
+[🇺🇸 English ](README.md) [🇨🇳 简体中文](README_CN.md)
 
 当前针对软件工程的 LLM 评测存在诸多局限，例如任务类型单一、偏向 Python、难以反映真实开发流程。
 为弥补这些不足，SWECompass 构建了一个**高覆盖、多维度、工程化对齐的统一评测框架**：
@@ -163,3 +163,17 @@ SWE-Compass/output/result/<run_id>/
 | `--api_key`          | Judge LLM API Key |
 | `--base_url`         | Judge LLM API URL |
 | `--proxy`            | 代理地址     |
+
+
+# 🤝 7. 贡献与合作
+
+我们欢迎来自 NLP、机器学习与软件工程领域的研究者参与本项目的改进与拓展。  
+您可以通过提交 issue 或 pull request 的形式，提出问题、建议或新的研究方向。
+
+如有合作意向或进一步交流，欢迎联系：
+
+- **徐景宣** — xujingxuan2002@163.com  
+- **邓肯** — dengken@kuaishou.com  
+- **刘佳恒** — liujiaheng@nju.edu.cn  
+
+我们期待与学术界和工业界共同推进大型语言模型在软件工程任务上的研究发展。
