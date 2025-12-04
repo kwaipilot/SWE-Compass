@@ -28,20 +28,20 @@ def eval_performance_optimization(data: dict, work_root: str, tmp_dir: str, prox
     result_file = work_dir / "result.json"
 
     if work_dir.exists():
-        print(f"[SKIP] {repo} PR #{pr_number} 已有 目录，跳过。")
+        print(f"[SKIP] {instance_id} directory already exists, skipping.")
         return 0
     if result_file.exists():
-        print(f"[SKIP] {repo} PR #{pr_number} 已有 result.json，跳过。")
+        print(f"[SKIP] {instance_id} result.json already exists, skipping.")
         return 0
     if lock_file.exists():
-        print(f"[SKIP] {repo} PR #{pr_number} 正在被其他节点执行，跳过。")
+        print(f"[SKIP] {instance_id} is being processed by another node, skipping.")
         return 0
 
     work_dir.mkdir(parents=True, exist_ok=True)
     try:
         lock_file.write_text(f"{os.uname().nodename} {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
     except Exception as e:
-        print(f"[WARN] 无法创建锁文件 {lock_file}: {e}")
+        print(f"[WARN] Failed to create lock file {lock_file}: {e}")
 
     TMP_DIR = Path(tmp_dir)
     uid = f"{repo}-{pr_number}-{uuid.uuid4().hex[:8]}"
@@ -88,13 +88,13 @@ def eval_performance_optimization(data: dict, work_root: str, tmp_dir: str, prox
                 if f.exists():
                     f.unlink()
             except Exception as e:
-                print(f"[WARN] 删除临时文件 {f} 失败: {e}")
+                print(f"[WARN] Failed to delete temporary file {f}: {e}")
 
         try:
             if lock_file.exists():
                 lock_file.unlink()
         except Exception as e:
-            print(f"[WARN] 删除锁文件 {lock_file} 失败: {e}")
+            print(f"[WARN] Failed to delete lock file {lock_file}: {e}")
 
 def eval_configuration_deployment(data: dict, work_root: str, tmp_dir: str, proxy: str) -> int:
     Evaluater = CURRENT_DIR / "configuration_deployment" / "eval_executor.py"
@@ -104,7 +104,7 @@ def eval_configuration_deployment(data: dict, work_root: str, tmp_dir: str, prox
 
     work_dir_parsed_test = work_dir / 'parsed_test_patch.json'
     if work_dir_parsed_test.exists():
-        print(f"[SKIP] {instance_id} 已存在，跳过")
+        print(f"[SKIP] {instance_id} already exists, skipping.")
         return 0
 
     TMP_DIR = Path(tmp_dir)
@@ -161,20 +161,20 @@ def eval_selected(data: dict, work_root: str, tmp_dir: str, proxy: str) -> int:
     result_file = work_dir / "result.json"
 
     if work_dir.exists():
-        print(f"[SKIP] {repo} PR #{pr_number} 已有 目录，跳过。")
+        print(f"[SKIP] {instance_id} already exists, skipping.")
         return 0
     if result_file.exists():
-        print(f"[SKIP] {repo} PR #{pr_number} 已有 result.json，跳过。")
+        print(f"[SKIP] {instance_id} result.json already exists, skipping.")
         return 0
     if lock_file.exists():
-        print(f"[SKIP] {repo} PR #{pr_number} 正在被其他节点执行，跳过。")
+        print(f"[SKIP] {instance_id} is being processed by another node, skipping.")
         return 0
 
     work_dir.mkdir(parents=True, exist_ok=True)
     try:
         lock_file.write_text(f"{os.uname().nodename} {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
     except Exception as e:
-        print(f"[WARN] 无法创建锁文件 {lock_file}: {e}")
+        print(f"[WARN] Failed to create lock file {lock_file}: {e}")
 
     TMP_DIR = Path(tmp_dir)
     uid = f"{repo}-{pr_number}-{uuid.uuid4().hex[:8]}"
@@ -221,13 +221,13 @@ def eval_selected(data: dict, work_root: str, tmp_dir: str, proxy: str) -> int:
                 if f.exists():
                     f.unlink()
             except Exception as e:
-                print(f"[WARN] 删除临时文件 {f} 失败: {e}")
+                print(f"[WARN] Failed to delete temporary file {f}: {e}")
 
         try:
             if lock_file.exists():
                 lock_file.unlink()
         except Exception as e:
-            print(f"[WARN] 删除锁文件 {lock_file} 失败: {e}")
+            print(f"[WARN] Failed to delete lock file {lock_file}: {e}")
 
 def eval_code_understanding(data: Dict, log_dir: str, model_name:str, api_key: str, base_url: str = ""):
     run_code_understanding(data, log_dir, model_name, api_key, base_url)
