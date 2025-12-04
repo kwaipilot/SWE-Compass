@@ -476,16 +476,7 @@ def build_container(
         # Define arguments for running the container
         run_args = test_spec.docker_specs.get("run_args", {})
         cap_add = run_args.get("cap_add", [])
-        CONTAINER_ENV = [
-    "http_proxy=http://oversea-squid5.sgp.txyun:11080",
-    "https_proxy=http://oversea-squid5.sgp.txyun:11080",
-    "HTTP_PROXY=http://oversea-squid5.sgp.txyun:11080",
-    "HTTPS_PROXY=http://oversea-squid5.sgp.txyun:11080",
-    "no_proxy=localhost,127.0.0.1,localaddress,localdomain.com,internal,corp.kuaishou.com,test.gifshow.com,staging.kuaishou.com",
-    "NO_PROXY=localhost,127.0.0.1,localaddress,localdomain.com,internal,corp.kuaishou.com,test.gifshow.com,staging.kuaishou.com",
-    # "PIP_INDEX_URL=https://pypi.corp.kuaishou.com/kuaishou/prod/+simple/",
-    # "UV_INDEX_URL=https://pypi.corp.kuaishou.com/kuaishou/prod/+simple/",
-]        
+        CONTAINER_ENV = []        
 
         container = client.containers.create(
             image=test_spec.instance_image_key,
