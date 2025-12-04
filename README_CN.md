@@ -19,7 +19,7 @@
 
 ---
 
-## 🧠 SWE-Compass：面向真实软件工程的统一智能体编码能力评测基准
+## 🧠 SWE-Compass：Towards Unified Evaluation of Agentic Coding Abilities for Large Language Models
 
 当前针对软件工程的 LLM 评测存在显著局限：
 任务类别单一、对 Python 过度集中、缺乏与真实开发流程的对齐程度。
