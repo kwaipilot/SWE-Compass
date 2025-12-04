@@ -15,6 +15,7 @@
     </div>
 </div>
 
+[🇺🇸 English ](README.md) [🇨🇳 简体中文](README_CN.md)
 ---
 
 ## 🧠 SWE-Compass: Towards Unified Evaluation of Agentic Coding Abilities for Large Language Models
