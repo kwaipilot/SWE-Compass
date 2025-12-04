@@ -1,31 +1,35 @@
-# SWE-Compass: A High-Coverage Benchmark for Real-World Software Engineering
-
-[🇺🇸 English ](README.md) [🇨🇳 简体中文](README_CN.md)
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/61ee40a269351366e29972ad/KIYEa1c_WJEWPpeS0L_k1.png" width="100%" alt="Kwaipilot" />
+   <hr>
+  <div align="center" style="line-height: 1;">
+    <a href="https://huggingface.co/datasets/Kwaipilot/SWE-Compass"><img alt="Hugging Face"
+      src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-swecompass-ffc107?color=ffc107&logoColor=white"/></a>
+    <a href="https://github.com/shunxing12345/swecompass/blob/main/LICENSE"><img alt="License"
+    src="https://img.shields.io/badge/License-Apache%202.0-f5de53?&color=f5de53"/></a>
+    <a href="https://arxiv.org/abs/2511.05459"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2511.05459-B31B1B?logo=arxiv&logoColor=white"/></a>
+    <br>
+    <a href="https://github.com/kwaipilot/SWE-Compass/stargazers"><img alt="GitHub stars"
+    src="https://img.shields.io/github/stars/kwaipilot/SWE-Compass"/></a>
+    <a href="https://github.com/kwaipilot/SWE-Compass/network"><img alt="GitHub forks"
+    src="https://img.shields.io/github/forks/kwaipilot/SWE-Compass"/></a>
+    </div>
+</div>
 
 ---
 
-## 🧠 SWE-Compass: A High-Coverage, Multi-Dimensional Benchmark for Real-World Software Engineering
+## 🧠 SWE-Compass: Towards Unified Evaluation of Agentic Coding Abilities for Large Language Models
 
 Current evaluations of LLMs for software engineering are limited by a narrow range of task categories, a Python-centric bias, and insufficient alignment with real-world development workflows.  
-To bridge these gaps, SWE-Compass establishes a **high-coverage, multi-dimensional, and production-aligned evaluation framework**:
+To bridge these gaps, SWECompass establishes a **high-coverage, multi-dimensional, and production-aligned evaluation framework**:
 
 * ✨ Covers **8 software engineering task types, 8 programming scenarios, and 10 programming languages**
 * ✨ Contains **2000 high-quality instances sourced from real GitHub pull requests**
 * ✨ Supports multi-dimensional performance comparison across task types, languages, and scenarios
 
-By integrating heterogeneous code tasks with real engineering practices, SWE-Compass provides a **reproducible, rigorous, and production-oriented benchmark** for diagnosing and improving the software engineering capabilities of large language models.
+By integrating heterogeneous code tasks with real engineering practices, SWECompass provides a **reproducible, rigorous, and production-oriented benchmark** for diagnosing and improving the software engineering capabilities of large language models.
 
 ---
 
-## 📚 Dataset & Paper
-
-* Dataset (HuggingFace):  
-  👉 https://huggingface.co/datasets/Kwaipilot/SWE-Compass
-
-* Paper (arXiv):  
-  👉 https://arxiv.org/abs/2511.05459
-
----
 
 ## ✨ Key Features
 
@@ -50,7 +54,7 @@ https://docs.docker.com/engine/install/
 Enter the project directory and run:
 
 ```bash
-cd SWE-Compass
+cd swe-compass
 pip install -e .
 pip install -r requirements.txt
 ````
@@ -62,7 +66,7 @@ pip install -r requirements.txt
 Enter the project directory and run:
 
 ```bash
-cd SWE-Compass
+cd swe-compass
 bash pull_docker.sh
 python download_all_data.py
 ```
@@ -75,7 +79,7 @@ The scripts will automatically download the evaluation environment from DockerHu
 
 You need to prepare a JSON file that maps each `instance_id` to its corresponding patch and metadata.
 
-Example format (see `SWE-Compass/data/example.json`):
+Example format (see `swe-compass/data/example.json`):
 
 ```json
 {
@@ -97,7 +101,7 @@ Example format (see `SWE-Compass/data/example.json`):
 ### 4.1 Basic Command
 
 ```bash
-cd SWE-Compass
+cd swe-compass
 python validation.py \
   --dataset_name ./data/swecompass_all_2000.jsonl \
   --predictions_path <your_predictions.json> \
@@ -132,7 +136,7 @@ python validation.py \
 ## 5.1 Work Logs Directory
 
 ```
-SWE-Compass/output/work/<run_id>/
+swe-compass/output/work/<run_id>/
 ```
 
 Contains execution traces and logs for each instance.
@@ -142,7 +146,7 @@ Contains execution traces and logs for each instance.
 ## 5.2 Evaluation Results Directory
 
 ```
-SWE-Compass/output/result/<run_id>/
+swe-compass/output/result/<run_id>/
 ```
 
 Contains two files:
@@ -167,7 +171,6 @@ Contains two files:
 | `--base_url`         | Judge LLM API URL              |
 | `--proxy`            | Proxy address                  |
 
-
 # 🤝 7. Contributions
 
 We welcome contributions from the research community in NLP, Machine Learning, and Software Engineering.  
@@ -181,11 +184,7 @@ For collaboration or inquiries, please contact:
 
 We appreciate constructive engagement and look forward to further improvements driven by the community.
 
-
-
-# 📄 8. Citation & licence
-
-Apache License 2.0 license. Check LICENSE.md.
+# 📄 8. Citation
 
 ```bibtex
 @article{xu2025SWECompass,
