@@ -88,19 +88,19 @@ def make_run_report(
             if run_id in container.name:
                 unstopped_containers.add(container.name)
 
-    # print final report
-    dataset_ids = {i[KEY_INSTANCE_ID] for i in full_dataset}
-    print(f"Total instances: {len(full_dataset)}")
-    print(f"Instances submitted: {len(set(predictions.keys()) & dataset_ids)}")
-    print(f"Instances completed: {len(completed_ids)}")
-    print(f"Instances incomplete: {len(incomplete_ids)}")
-    print(f"Instances resolved: {len(resolved_ids)}")
-    print(f"Instances unresolved: {len(unresolved_ids)}")
-    print(f"Instances with empty patches: {len(empty_patch_ids)}")
-    print(f"Instances with errors: {len(error_ids)}")
-    if client:
-        print(f"Unstopped containers: {len(unstopped_containers)}")
-        print(f"Unremoved images: {len(unremoved_images)}")
+    # # print final report
+    # dataset_ids = {i[KEY_INSTANCE_ID] for i in full_dataset}
+    # print(f"Total instances: {len(full_dataset)}")
+    # print(f"Instances submitted: {len(set(predictions.keys()) & dataset_ids)}")
+    # print(f"Instances completed: {len(completed_ids)}")
+    # print(f"Instances incomplete: {len(incomplete_ids)}")
+    # print(f"Instances resolved: {len(resolved_ids)}")
+    # print(f"Instances unresolved: {len(unresolved_ids)}")
+    # print(f"Instances with empty patches: {len(empty_patch_ids)}")
+    # print(f"Instances with errors: {len(error_ids)}")
+    # if client:
+    #     print(f"Unstopped containers: {len(unstopped_containers)}")
+    #     print(f"Unremoved images: {len(unremoved_images)}")
 
     # write report to file
     report = {
@@ -133,7 +133,7 @@ def make_run_report(
         + f".{run_id}"
         + ".json"
     )
-    with open(report_file, "w") as f:
-        print(json.dumps(report, indent=4), file=f)
-    print(f"Report written to {report_file}")
+    # with open(report_file, "w") as f:
+    #     print(json.dumps(report, indent=4), file=f)
+    # print(f"Report written to {report_file}")
     return report_file
