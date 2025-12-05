@@ -31,7 +31,6 @@ class ConfigManager:
         
         self.default_no_proxy = (
             "localhost,127.0.0.1,localaddress,localdomain.com,"
-            "internal,corp.kuaishou.com,test.gifshow.com,staging.kuaishou.com"
         )
 
     # build runtime config and ensure directories exist
