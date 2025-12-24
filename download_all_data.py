@@ -2,32 +2,28 @@ import json
 from datasets import load_dataset
 from tqdm import tqdm
 
-# 1. 定义所有需要下载的 config 名称
 config_names = [
     "code_understanding",
     "configuration_deployment",
     "performance_optimization",
     "test_case_generation",
-    "opensource_swe_bench_live",
-    "opensource_swe_bench_multilingual",
-    "opensource_swe_bench_verified",
-    "opensource_swe_Rebench",
+    "opensource-swe-bench-live",
+    "opensource-swe-bench-multilingual",
+    "opensource-swe-bench-verified",
+    "opensource-swe-Rebench",
     "selected"
 ]
 
-# 输出文件名
 output_file = "./data/swecompass_all_2000.jsonl"
 
 print(f"🚀 开始下载并合并数据到: {output_file}")
 
-# 2. 打开文件准备写入
 with open(output_file, 'w', encoding='utf-8') as f_out:
     for config in config_names:
         print(f"\n📥 正在处理子集: {config} ...")
         
         try:
-            # 加载特定子集（split 为 eval）
-            ds = load_dataset("Kwaipilot/SWE-Compass", config, split="eval")
+            ds = load_dataset("Kwaipilot/SWE-Compass", config, split="test")
             
             count = 0
             for row in tqdm(ds, desc=f"Writing {config}"):
