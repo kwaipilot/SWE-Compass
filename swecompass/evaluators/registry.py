@@ -24,10 +24,10 @@ class EvaluatorDispatcher:
                 eval_selected(data=item, work_root=str(context.work_dir) + "/selected", tmp_dir=str(context.tmp_dir), proxy=context.proxy)
             
             elif source == "code_understanding":
-                eval_code_understanding(data=item, log_dir=str(context.work_dir) + "/code_understanding" , model_name=context.model_name, api_key=context.api_key, base_url=context.base_url)
+                eval_code_understanding(data=item, log_dir=str(context.work_dir) + "/code_understanding" , model_name=context.model_name, api_key=context.api_key, base_url=context.base_url, proxy=context.proxy)
 
             elif source == "test_case_generation":
-                eval_unit_test_generation(data=item, log_dir=str(context.work_dir) + "/test_case_generation")
+                eval_unit_test_generation(data=item, log_dir=str(context.work_dir) + "/test_case_generation", proxy=context.proxy)
 
             elif source == "configuration_deployment":
                 eval_configuration_deployment(data=item, work_root=str(context.work_dir) + "/configuration_deployment", tmp_dir=str(context.tmp_dir), proxy=context.proxy)

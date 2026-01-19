@@ -67,7 +67,7 @@ def eval_performance_optimization(data: dict, work_root: str, tmp_dir: str, prox
             sys.executable, str(Evaluater),
             "--base-commit", data.get("base_commit", ""),
             "--test-cmd-file", str(test_cmd_file),
-            "--test-cmd", data.get("test_cmd", ""),
+            "--test-cmd", f"{proxy}; {data.get("test_cmd", "")}",
             "--repo_name", repo,
             "--pr-number", pr_number,
             "--work-root", str(work_dir),
@@ -130,7 +130,7 @@ def eval_configuration_deployment(data: dict, work_root: str, tmp_dir: str, prox
         sys.executable, str(Evaluater),
         "--base-commit", data.get("base_commit", ""),
         "--instance_number", instance_id,
-        "--test-cmd", data.get("test_cmd", ""),
+        "--test-cmd", f"{proxy}; {data.get("test_cmd", "")}",
         "--repo_name", data.get("repo_key", ""),
         "--work-root", str(work_dir),
         "--container-name", f"swecompass-{data.get('repo_key', '')}-{instance_id}",
@@ -200,7 +200,7 @@ def eval_selected(data: dict, work_root: str, tmp_dir: str, proxy: str) -> int:
             sys.executable, str(Evaluater),
             "--base-commit", data.get("base_commit", ""),
             "--test-cmd-file", str(test_cmd_file),
-            "--test-cmd", data.get("test_cmd", ""),
+            "--test-cmd", f"{proxy}; {data.get("test_cmd", "")}",
             "--repo_name", repo,
             "--pr-number", pr_number,
             "--work-root", str(work_dir),
@@ -229,8 +229,8 @@ def eval_selected(data: dict, work_root: str, tmp_dir: str, proxy: str) -> int:
         except Exception as e:
             print(f"[WARN] Failed to delete lock file {lock_file}: {e}")
 
-def eval_code_understanding(data: Dict, log_dir: str, model_name:str, api_key: str, base_url: str = ""):
-    run_code_understanding(data, log_dir, model_name, api_key, base_url)
+def eval_code_understanding(data: Dict, log_dir: str, model_name:str, api_key: str, base_url: str = "", proxy: str=""):
+    run_code_understanding(data, log_dir, model_name, api_key, base_url, proxy)
 
-def eval_unit_test_generation(data: Dict, log_dir: str):
-    evaluate(data, log_dir)
+def eval_unit_test_generation(data: Dict, log_dir: str, proxy: str):
+    evaluate(data, log_dir, proxy)

@@ -107,7 +107,8 @@ def generate_eval_script(
     repo,
     base_commit,
     model_patch,
-    instance_log_dir
+    instance_log_dir,
+    proxy
 ):
     parse_error = False
 
@@ -115,7 +116,7 @@ def generate_eval_script(
 
     # Step 1: Checkout branch
     script_cmds.append(
-        f"cd /testbed && git checkout {base_commit}"
+        f"{proxy}; cd /testbed && git checkout {base_commit}"
     )
 
     # Step 2: Apply patches
@@ -586,7 +587,8 @@ def run_unit_generation(
     base_commit,
     model_patch,
     code_patch,
-    log_dir
+    log_dir,
+    proxy
 ):
     random_number_1 = random.randint(1000000, 9999999)
     random_number_2 = random.randint(1000000, 9999999)
@@ -602,7 +604,8 @@ def run_unit_generation(
             repo=repo,
             base_commit=base_commit,
             model_patch=model_patch,
-            instance_log_dir=instance_log_dir
+            instance_log_dir=instance_log_dir,
+            proxy=proxy
         )
         if len(eval_script_cmds) == 0:
             print(f"generate_eval_script failed for {instance_id}")
@@ -639,7 +642,7 @@ def run_unit_generation(
 
     return 0.0
 
-def evaluate(data: Dict, log_dir: str) -> float:
+def evaluate(data: Dict, log_dir: str, proxy: str) -> float:
     """
     Evaluate code understanding for a single instance.
     
@@ -668,7 +671,8 @@ def evaluate(data: Dict, log_dir: str) -> float:
         base_commit=base_commit,
         model_patch=model_patch,
         code_patch=test_patch,
-        log_dir=log_dir
+        log_dir=log_dir,
+        proxy=proxy
     )
     
     return score

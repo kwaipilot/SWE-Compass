@@ -1,5 +1,6 @@
 import argparse
 import sys
+import time
 import logging
 from swecompass.core.config import ConfigManager
 from swecompass.core.loader import DataLoader
@@ -69,7 +70,6 @@ def validate_requirements(args):
 # main workflow entry
 def main():
     args = parse_args()
-
     # validate required settings based on scenario
     validate_requirements(args)
 

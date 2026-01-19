@@ -32,6 +32,7 @@ class DataLoader:
         if target_set is None:
             return True
         value = item.get(field)
+        print(field,value,target_set)
         return str(value) in target_set
 
     # load dataset, merge predictions, gather statistics
@@ -43,7 +44,7 @@ class DataLoader:
             "programming_scenarios": Counter(),
             "task_types": Counter()
         }
-        
+
         missing_predictions = []
         total_filtered = 0
 

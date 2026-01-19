@@ -158,7 +158,7 @@ def _judge_question(
         return q_id, 0.0, f"Error: {e}"
 
 
-def run_code_understanding(data, log_dir, model_name, api_key, base_url) -> float:
+def run_code_understanding(data, log_dir, model_name, api_key, base_url, proxy) -> float:
     """
     Evaluate code understanding for a single instance.
     
@@ -184,7 +184,6 @@ def run_code_understanding(data, log_dir, model_name, api_key, base_url) -> floa
     
     out_dir = os.path.join(log_dir, instance_id)
     os.makedirs(out_dir, exist_ok=True)
-    
     safe_id = instance_id.replace('/', '_')
     
     if not model_patch or not model_patch.strip():
@@ -195,13 +194,13 @@ def run_code_understanding(data, log_dir, model_name, api_key, base_url) -> floa
     
     if not questions:
         return 0.0
-    
     # Build checklist map
     checklist_map = {}
     for category, items in checklists.get("checklist_categories", {}).items():
+        if not isinstance(items, list):
+            continue
         for item in items:
             checklist_map[item['item_id']] = item
-    
     # Judge each question
     results = []
     for idx, q in enumerate(questions, 1):

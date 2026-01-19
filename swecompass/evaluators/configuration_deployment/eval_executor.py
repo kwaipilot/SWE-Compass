@@ -17,7 +17,7 @@ import xml.etree.ElementTree as ET
 
 import requests
 
-VERBOSE = True
+VERBOSE = False
 
 def log(msg):
     if VERBOSE:

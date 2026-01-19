@@ -148,6 +148,7 @@ def main():
                         sys.executable, '-m', 'swecompass.entry.main',
                         '--dataset_name', data_file,
                         '--predictions_path', pred_file,
+                        '--task_types', args.task_types,
                         '--run_id', args.run_id,
                         '--model_name',args.model_name,
                         '--api_key',args.api_key,
@@ -182,7 +183,7 @@ def main():
                     ] + remaining_args
 
                 cmds.append(cmd)
-
+        print(cmds)
         # environment injection for pythonpath
         env = os.environ.copy()
         current_python_path = os.environ.get('PYTHONPATH', '')
@@ -191,6 +192,7 @@ def main():
         # execute commands sequentially and remain interactive
         for cmd in cmds:
             # print command (for debugging)
+            cmd = [str(arg) if arg is not None else "" for arg in cmd]
             logging.info(f"[INFO] Executing: {' '.join(cmd)}")
             logging.info("-" * 80)
 
