@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MAX_CONCURRENT=10
-FILE="d.txt"
+FILE="docker_images.txt"
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
